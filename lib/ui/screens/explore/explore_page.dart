@@ -3,8 +3,8 @@ import 'package:mp_app/ui/components/explore_app_bar.dart';
 import 'package:mp_app/ui/components/explore_search_bar.dart';
 import 'package:mp_app/ui/components/explore_filter_chips.dart';
 import 'package:mp_app/ui/components/trending_card.dart';
+import 'package:mp_app/ui/screens/now_playing/now_playing_page.dart'; 
 import 'explore_controller.dart';
-
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
@@ -36,10 +36,8 @@ class _ExplorePageState extends State<ExplorePage> {
           child: ListView(
             children: [
               const SizedBox(height: 20),
-
               const ExploreAppBar(),
               const SizedBox(height: 24),
-
               const ExploreSearchBar(),
               const SizedBox(height: 16),
 
@@ -82,13 +80,17 @@ class _ExplorePageState extends State<ExplorePage> {
                     imagePath: item['image'],
                     color: item['color'],
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Opening "${item['title']}"... (NowPlayingPage)'),
-                          duration: const Duration(seconds: 2)
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NowPlayingPage(
+                            title: item['title'],
+                            artist: item['subtitle'],
+                            coverImagePath: item['image'],
+                          ),
                         ),
                       );
-                    }
+                    },
                   );
                 },
               ),
